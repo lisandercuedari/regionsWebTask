@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +23,8 @@ namespace Api
 
                 try
                 {
-                    //var context = services.GetRequiredService<ApplicationDbContext>();
+                    var context = services.GetRequiredService<ApplicationDbContext>();
+                    await ApplicationDbContextSeed.SeedCSVDataAsync(context);
                 }
                 catch (Exception ex)
                 {
