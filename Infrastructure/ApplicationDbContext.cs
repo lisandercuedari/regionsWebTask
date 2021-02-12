@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application;
 using Domain;
+using Domain.Employee;
 using Domain.Region;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,19 @@ namespace Infrastructure
         }
 
         public DbSet<Region> Regions { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+
+        public Task<Region> GetRegionById(int id,
+            CancellationToken cancellationToken = new CancellationToken())
+        {
+            return Regions.FirstOrDefaultAsync(e => e.RegionId == id, cancellationToken);
+        }
+
+        public Task<Employee> GetEmployeeById(int id,
+            CancellationToken cancellationToken = new CancellationToken())
+        {
+            return Employees.FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
+        }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
