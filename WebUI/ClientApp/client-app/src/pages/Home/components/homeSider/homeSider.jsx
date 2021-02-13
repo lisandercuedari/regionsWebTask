@@ -22,7 +22,7 @@ export const HomeSider = () =>
         <SiderHeader />
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
             <SubMenu key="sub1" icon={<QrcodeOutlined />} title="Regions">
-                <Menu.Item key="1"><NavLink to="/ui/regions/import">Import</NavLink></Menu.Item>
+                <Menu.Item key="1"><NavLink to="/ui/regions/employees">Employees</NavLink></Menu.Item>
             </SubMenu>
         </Menu>
     </Sider>

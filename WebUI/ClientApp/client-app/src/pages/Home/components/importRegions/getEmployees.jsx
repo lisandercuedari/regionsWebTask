@@ -3,8 +3,8 @@ import 'App.css';
 import 'antd/dist/antd.css';
 import styled from "styled-components";
 import { Layout } from 'antd';
-import { ImportRegionsForm } from './importRegionsForm/importRegionsForm';
 import { Col, Row } from 'antd';
+import { GetEmployeesForm } from './importRegionsForm/getEmployeesForm';
 
 const { Header, Content } = Layout;
 
@@ -22,7 +22,7 @@ const StyledContent = styled(Content)`
 margin: 0 16px;
 `
 
-export const ImportRegions = ({ routes }) => {
+export const GetEmployees = ({ routes }) => {
 
     return (
         <React.Fragment>
@@ -32,10 +32,10 @@ export const ImportRegions = ({ routes }) => {
                     <div>
                         <Row gutter={[16, 32]} align="middle" justify="left">
                             <Col xl={20}>
-                                <span style={{ fontSize: '1.3em', fontWeight: '600' }}>Import regions from your CSV file</span>
+                                <span style={{ fontSize: '1.3em', fontWeight: '600' }}>Employees for region</span>
                             </Col>
                         </Row>
-                        <ImportRegionsForm />
+                        <GetEmployeesForm />
                     </div>
                 </StyledDivBody>
             </StyledContent>

@@ -1,6 +1,6 @@
 const Resources = {
     Regions: {
-        Post: 'Regions/Post'        
+        Employees: 'Region/Post'        
     }
 }
 

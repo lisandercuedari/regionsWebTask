@@ -1,8 +1,8 @@
 import axiosInstance from './client';
 
-async function get(resourcePath, parameters){
-    const response = await axiosInstance.get(resourcePath, {params: parameters})
-    return response;
+async function get(resourcePath){
+    const response = await axiosInstance.get(resourcePath)
+    return response.data;
 };
 
 export default get;
