@@ -13,6 +13,12 @@ All the dependencies (regarding the frontend) should require only *npm install*.
 The frontend has the *Base Url* in the *api* folder in *client.js* (for the axios instance): *baseURL: `https://localhost:44380/`* If you want to run it on another port you can change it there (also on the project properties in the backend)
 
 # Note
+
+The CSV files need to be in a folder named *CSV* inside the bin folder. This was used by me during development and I forgot to change the path after the last push.
+Considering the task mentioned to not push anything new after submitting the project I am not changing it.
+**Please create a folder named CSV in the bin folder, with the two csv files inside of it (they are read in the ApplicationDbContextSeed.cs)**
+
+
 Unfortunately the connectrion string for the database is hardcoded.
 It is in two places in the Infrastructure layer (the DependencyInjection.cs and ContextFactory.cs files).
 The best approach is to move it to the appsettings.json and use the Options Pattern
