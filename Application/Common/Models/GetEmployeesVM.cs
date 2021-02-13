@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Employee
+namespace Application.Common.Models
 {
-    public class Employee : AuditableEntity
+    public class GetEmployeesVM
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public Region.Region Region { get; set; }
-        public int RegionId { get; set; }
+        public string Regions { get; set; }
     }
 }

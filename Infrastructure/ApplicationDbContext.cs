@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -30,10 +31,20 @@ namespace Infrastructure
             return Regions.FirstOrDefaultAsync(e => e.RegionId == id, cancellationToken);
         }
 
+        public IQueryable<Region> GetSubRegionsByParentId(int parentId)
+        {
+            return Regions.Where(e => e.ParentRegion.RegionId == parentId);
+        }
+
         public Task<Employee> GetEmployeeById(int id,
             CancellationToken cancellationToken = new CancellationToken())
         {
             return Employees.FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
+        }
+
+        public IQueryable<Employee> GetEmployeesByRegionId(int regionId)
+        {
+            return Employees.Include(a=>a.Region).Where(e => e.RegionId == regionId);
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
@@ -57,6 +68,7 @@ namespace Infrastructure
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            builder.Entity<Region>().Property(m => m.RegionId).ValueGeneratedNever();
             base.OnModelCreating(builder);
         }
     }

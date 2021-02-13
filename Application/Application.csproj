@@ -20,7 +20,6 @@
       <Folder Include="Common\Configurations\" />
       <Folder Include="Common\Extensions\" />
       <Folder Include="Common\Interfaces\" />
-      <Folder Include="Common\Models\" />
       <Folder Include="Common\Utilities\" />
     </ItemGroup>
 

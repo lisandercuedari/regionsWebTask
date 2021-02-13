@@ -32,13 +32,12 @@ namespace Application.Employees.Post
                     Message = validationResult.Message
                 };
 
-            var region = await _context.GetRegionById(command.RegionId, cancellationToken: cancellationToken);
-
+            //Do not check if Region exists beacuse it was already checked by the Validator
             var enmployee = new Employee()
             {
                 FirstName = command.FirstName,
                 LastName = command.LastName,
-                Region = region
+                RegionId = command.RegionId
             };
 
             await _context.Employees.AddAsync(enmployee, cancellationToken);

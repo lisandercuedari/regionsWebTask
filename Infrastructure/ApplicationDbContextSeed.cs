@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,6 +35,11 @@ namespace Infrastructure
             {
                 await InsertRegions(context);
             }
+
+            if (!context.Employees.Any())
+            {
+                await InsertEmployees(context);
+            }
         }
 
         public static List<RegionFromCSV> ReadRegionsFromCsv(string filePath)
@@ -42,7 +48,7 @@ namespace Infrastructure
 
             string line = "";
             System.IO.StreamReader file =
-                new System.IO.StreamReader(@"C:\Users\lcuedari\source\repos\regionsWebTask\regions.csv");
+                new System.IO.StreamReader(filePath);
             while ((line = file.ReadLine()) != null)
             {
                 var rr = line.Split(",");
@@ -78,8 +84,8 @@ namespace Infrastructure
 
         public static async Task InsertRegions(ApplicationDbContext context)
         {
-
-            var regionsList = ReadRegionsFromCsv(@"C:\Users\lcuedari\source\repos\regionsWebTask\regions.csv");
+            var path = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "CSV", "regions.csv");
+            var regionsList = ReadRegionsFromCsv(path);
             //Insert root regions
             var rootRegionsFromCSV = regionsList.Where(a => a.ParentRegionId == null).Select(a => a.Id).ToList();
             var rootRegions = regionsList.Where(a => a.ParentRegionId == null)
@@ -125,58 +131,36 @@ namespace Infrastructure
 
             context.Regions.AddRange(thirdLevelRegions);
             await context.SaveChangesAsync();
+        }
 
-            allRegions = context.Regions;
-            var fourthLevelRegions = regionsList.Where(a => a.ParentRegionId != null && thirdLevelRegions.Select(w => w.RegionId).Contains(a.ParentRegionId.Value)).Select(a => new Region()
+        public static async Task InsertEmployees(ApplicationDbContext context)
+        {
+            var path = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "CSV", "employees.csv");
+            var employeesFromCSV = ReadEmployeesFromCsv(path);
+
+            context.Employees.AddRange(employeesFromCSV.Select(a=> new Domain.Employee.Employee()
             {
-                RegionId = a.Id,
-                Name = a.Name,
-                Created = DateTime.Now,
-                ParentRegion = allRegions.FirstOrDefault(w => w.RegionId == a.ParentRegionId)
-            }).ToList();
-
-            context.Regions.AddRange(fourthLevelRegions);
+                FirstName = a.FirstName,
+                LastName = a.LastName,
+                RegionId = a.RegionId,
+                Created = DateTime.Now
+            }));
             await context.SaveChangesAsync();
         }
 
         public static List<EmployeeFromCSV> ReadEmployeesFromCsv(string filePath)
         {
-            List<RegionFromCSV> regionsList = new List<RegionFromCSV>();
+            List<EmployeeFromCSV> regionsList = new List<EmployeeFromCSV>();
 
-            string line = "";
-            System.IO.StreamReader file =
-                new System.IO.StreamReader(@"C:\Users\lcuedari\source\repos\regionsWebTask\regions.csv");
-            while ((line = file.ReadLine()) != null)
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
-                var rr = line.Split(",");
-                int? parentRegionId = null;
-                string regionName = "";
-                int regionId = 0;
-
-                if (rr[0].Contains("\""))
-                {
-                    regionId = Int32.Parse(rr[2]);
-                    regionName = rr[0].Replace("\"", "") + rr[1].Replace("\"", "");
-                    parentRegionId = string.IsNullOrEmpty(rr[3]) ? default(int?) : int.Parse(rr[3]);
-                }
-                else
-                {
-                    regionId = Int32.Parse(rr[1]);
-                    regionName = rr[0];
-                    parentRegionId = string.IsNullOrEmpty(rr[2]) ? default(int?) : int.Parse(rr[2]);
-                }
-
-                regionsList.Add(new RegionFromCSV()
-                {
-                    Name = regionName,
-                    Id = regionId,
-                    ParentRegionId = parentRegionId
-                });
+                HasHeaderRecord = false,
+            };
+            using (var reader = new StreamReader(filePath))
+            using (var csv = new CsvReader(reader, config))
+            {
+                return csv.GetRecords<EmployeeFromCSV>().ToList();
             }
-
-            file.Close();
-
-            return regionsList;
         }
     }
 }

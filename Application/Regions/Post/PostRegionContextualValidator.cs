@@ -18,11 +18,11 @@ namespace Application.Regions.Post
 
         public async Task<ValidationResult> Validate(PostRegionCommand command, CancellationToken cancellationToken = new CancellationToken())
         {
-                var region = await _context.GetRegionById(command.Id, cancellationToken: cancellationToken);
+                var region = await _context.GetRegionById(command.RegionId, cancellationToken: cancellationToken);
 
                 if (region != null)
                 {
-                    return ValidationResult.Failure($"Please give a valid region Id. Region with id {command.Id} already exist!");
+                    return ValidationResult.Failure($"Please give a valid region Id. Region with id {command.RegionId} already exist!");
                 }
 
             return ValidationResult.Success();

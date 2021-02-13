@@ -9,7 +9,7 @@ namespace Application.Regions.Post
 {
     public class PostRegionCommand : IRequest<PostModelResult>
     {
-        public int Id { get; set; }
+        public int RegionId { get; set; }
         public int ParentRegionId { get; set; }
         public string Name { get; set; }
     }

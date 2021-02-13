@@ -10,7 +10,7 @@ namespace Application.Regions.Post
         public PostRegionCommandValidator()
         {
             RuleFor(model => model.Name).NotEmpty().WithMessage("Please give a valid Name!");
-            RuleFor(model => model.Id).NotEmpty().WithMessage("Please give a valid Id for the region!");
+            RuleFor(model => model.RegionId).NotEmpty().WithMessage("Please give a valid Id for the region!");
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +22,9 @@ namespace Application
 
         public Task<Region> GetRegionById(int id,
             CancellationToken cancellationToken = new CancellationToken());
+        public IQueryable<Region> GetSubRegionsByParentId(int parentId);
         public Task<Employee> GetEmployeeById(int id,
             CancellationToken cancellationToken = new CancellationToken());
+        public IQueryable<Employee> GetEmployeesByRegionId(int regionId);
     }
 }

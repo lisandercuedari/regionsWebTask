@@ -33,7 +33,7 @@ namespace Application.Regions.Post
 
             var newRegion = new Region();
             newRegion.Name = command.Name;
-            newRegion.RegionId = command.Id;
+            newRegion.RegionId = command.RegionId;
 
             if (command.ParentRegionId != 0)
             {
