@@ -1,4 +1,4 @@
-# regionsWebTask
+# Regions Web Task
 The application consists of the backend API in .NET Core C# with a SQL Server database (that can be created through the migrations using EF Core). 
 MediatR is used for the Mediator Pattern implementaion.
 
