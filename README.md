@@ -14,4 +14,6 @@ It is in two places in the Infrastructure layer (the DependencyInjection.cs and 
 The best approach is to move it to the appsettings.json and use the Options Pattern
 The connection string to be replaced is from my own server: *Server=it2\\sqlServer2017;Database=RegionsWebTask;Integrated Security=SSPI;*
 
+The View for the GET is: https://localhost:44380/ui/regions/employees
+
 
