@@ -10,6 +10,8 @@ All the dependencies (regarding the frontend) should require only *npm install*.
 
 **If you have any problem with the CSV Helper's version on your machine you can just install the latest version of it from NuGet**
 
+The front has the Base Url in the *api* folder in client.js (for the axios instance): *baseURL: `https://localhost:44380/`*
+
 # Note
 Unfortunately the connectrion string for the database is hardcoded.
 It is in two places in the Infrastructure layer (the DependencyInjection.cs and ContextFactory.cs files).
