@@ -8,6 +8,8 @@ Antd is used as the UI library for the application.
 
 All the dependencies (regarding the frontend) should require only *npm install*.
 
+**If you have any problem with CSV Helper on your machine you can just install the latest version of it**
+
 # Note
 Unfortunately the connectrion string for the database is hardcoded.
 It is in two places in the Infrastructure layer (the DependencyInjection.cs and ContextFactory.cs files).
