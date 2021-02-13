@@ -8,7 +8,7 @@ Antd is used as the UI library for the application.
 
 All the dependencies (regarding the frontend) should require only *npm install*.
 
-**If you have any problem with CSV Helper on your machine you can just install the latest version of it**
+**If you have any problem with the CSV Helper's version on your machine you can just install the latest version of it from NuGet**
 
 # Note
 Unfortunately the connectrion string for the database is hardcoded.
